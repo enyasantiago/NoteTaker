@@ -30,9 +30,16 @@ app.get("/api/notes", function (req, res) {
 // add it to the `db.json` file, and then return the new note to the client.
 app.post("/api/notes",function (req,res) {
     let newNote = req.body;
+    let lastNoteId = database.length
+    newNote.id = lastNoteId + 1;
     database.push(newNote)
-    res.json(newNote);
-
+    fs.writeFile(path.join(__dirname, "/db/db.json", JSON.stringify(database), function (err) {
+      if (err) {
+      return console.log(err);
+      }
+      console.log("Your note was saved!");
+    database.push(newNote)
+    
 })
 
 //* DELETE `/api/notes/:id` - Should receive a query parameter containing the id of a note to delete. 
