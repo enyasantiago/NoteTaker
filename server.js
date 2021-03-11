@@ -67,13 +67,12 @@ app.delete("/api/notes/:id", function (req, res) {
     }
   }
   // Write the db.json file again.
-  fs.writeFileSync("/db/db.json", JSON.stringify(database), function (err) {
+  fs.writeFileSync("./db/db.json", JSON.stringify(database), function (err) {
     
         if (err) {
               return console.log(err);
-          } else {
+          }
                 console.log("Your note was deleted!");
-            }
         });
         res.json(database);
       });
