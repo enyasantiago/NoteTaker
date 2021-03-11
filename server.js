@@ -22,11 +22,7 @@ app.get("/notes", function(req, res){
 app.get("/api/notes", function(req, res) {
   return res.json(database);
 });
-// });
-// app.get("/api/notes", function(req, res) {
-//   let savedNotes = JSON.parse(fs.readFileSync(database, "utf8"));
-//   res.json(savedNotes[Number(req.params.id)]);
-// });
+
 app.get("/api/notes/:id", function(req, res) {
   let savedNotes = JSON.parse(fs.readFileSync(database, "utf8"));
   res.json(savedNotes[Number(req.params.id)]);
@@ -64,21 +60,21 @@ app.delete("/api/notes/:id", function (req, res) {
   // request to delete note by id.
   for (let i = 0; i < database.length; i++) {
     
-    if (database[i].id === req.params.id) {
+    if (database[i].id == req.params.id) {
       // Splice takes i position, and then deletes the 1 note.
       database.splice(i, 1);
       break;
     }
   }
-  // // Write the db.json file again.
-  // fs.writeFileSync("/db/db.json", JSON.stringify(database), function (err) {
+  // Write the db.json file again.
+  fs.writeFileSync("/db/db.json", JSON.stringify(database), function (err) {
     
-    //     if (err) {
-      //         return console.log(err);
-      //     } else {
-        //         console.log("Your note was deleted!");
-        //     }
-        // });
+        if (err) {
+              return console.log(err);
+          } else {
+                console.log("Your note was deleted!");
+            }
+        });
         res.json(database);
       });
       
